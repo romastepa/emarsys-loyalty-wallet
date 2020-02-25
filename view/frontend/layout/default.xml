@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @category   Emarsys
+* @package    Emarsys_LoyaltyWallet
+* @copyright  Copyright (c) 2020 Emarsys. (http://www.emarsys.net/)
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="emarsys.loyaltywallet.wrapper" htmlTag="div" htmlClass="emarsys-wrapper" after="-" >
+                <block class="Emarsys\LoyaltyWallet\Block\View" template="Emarsys_LoyaltyWallet::emarsys/view.phtml" name="webextend" ifconfig="emarsys_loyalty_wallet/settings/enable" after="-" />
+            </container>
+        </referenceContainer>
+    </body>
+</page>

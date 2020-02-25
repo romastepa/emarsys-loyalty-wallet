@@ -1,0 +1,47 @@
+<?php
+/**
+ * @category   Emarsys
+ * @package    Emarsys_LoyaltyWallet
+ * @copyright  Copyright (c) 2020 Emarsys. (http://www.emarsys.net/)
+ */
+
+/** @var \Emarsys\LoyaltyWallet\Block\View $block */
+?>
+
+<?php if ($block->isEnable() || !empty($block->getAppId()) || !empty($block->getSecret())): ?>
+    <script type="text/javascript">
+        !function () {
+            var eEmarsys = (new Date).getTime(), tEmarsys = document.getElementsByTagName("script")[0],
+                nEmarsys = document.createElement("script");
+            nEmarsys.src = "//ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys, nEmarsys.type = "text/javascript", nEmarsys.async = !0, nEmarsys.defer = !0, tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys)
+        }();
+
+        var LoyaltyWallet = [];
+        require([
+            'jquery',
+            'Magento_Customer/js/customer-data'
+        ], function (jQuery, customerData) {
+            const onData = function () {
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = undefined;
+                }
+
+                if (LoyaltyWallet.customer && LoyaltyWallet.customer.contactid) {
+                    window.loyalsysSettings = {
+                        appId: LoyaltyWallet.customer.appid,
+                        contactId: LoyaltyWallet.customer.contactid,
+                        timestamp: LoyaltyWallet.customer.time,
+                        token: LoyaltyWallet.customer.token,
+                        region: LoyaltyWallet.customer.region,
+                    }
+                }
+            };
+
+            customerData.get('customer').subscribe(function (customer) {
+                LoyaltyWallet.customer = customer;
+                if (!timeout) timeout = setTimeout(onData, 0);
+            });
+        });
+    </script>
+<?php endif; ?>
