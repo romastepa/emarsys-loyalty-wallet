@@ -21,6 +21,9 @@
             'jquery',
             'Magento_Customer/js/customer-data'
         ], function (jQuery, customerData) {
+
+            let timeout;
+
             const onData = function () {
                 if (timeout) {
                     clearTimeout(timeout);
