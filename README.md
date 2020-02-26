@@ -25,4 +25,4 @@ from magento root folder
 
 ## Release Notes
 
-### v1.0.0
+### v1.0.1
