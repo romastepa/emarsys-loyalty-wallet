@@ -14,7 +14,7 @@
         <section id="emarsys_loyalty_wallet" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
             <label>Loyalty Wallet</label>
-            <tab>emarsys_connect</tab>
+            <tab>emarsys</tab>
             <resource>Emarsys_LoyaltyWallet::settings</resource>
             <group id="settings" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>Settings</label>
