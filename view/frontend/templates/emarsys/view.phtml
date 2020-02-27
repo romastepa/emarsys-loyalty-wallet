@@ -15,7 +15,7 @@
             'jquery',
             'Magento_Customer/js/customer-data'
         ], function (jQuery, customerData) {
-
+            let firstOnData = true;
             let timeout;
 
             const onData = function () {
@@ -24,18 +24,22 @@
                     timeout = undefined;
                 }
 
-                if (LoyaltyWallet.customer && LoyaltyWallet.customer.contactid) {
-                    window.loyalsysSettings = {
-                        appId: LoyaltyWallet.customer.appid,
-                        contactId: LoyaltyWallet.customer.contactid,
-                        timestamp: LoyaltyWallet.customer.time,
-                        token: LoyaltyWallet.customer.token,
-                        region: LoyaltyWallet.customer.region,
-                    }
+                if (firstOnData) {
+                    if (LoyaltyWallet.customer && LoyaltyWallet.customer.contactid) {
+                        window.loyalsysSettings = {
+                            appId: LoyaltyWallet.customer.appid,
+                            contactId: LoyaltyWallet.customer.contactid,
+                            timestamp: LoyaltyWallet.customer.time,
+                            token: LoyaltyWallet.customer.token,
+                            region: LoyaltyWallet.customer.region,
+                        };
 
-                    var eEmarsys = (new Date).getTime(), tEmarsys = document.getElementsByTagName("script")[0],
-                        nEmarsys = document.createElement("script");
-                    nEmarsys.src = "//ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys, nEmarsys.type = "text/javascript", nEmarsys.async = !0, nEmarsys.defer = !0, tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys)
+                        var eEmarsys = (new Date).getTime(), tEmarsys = document.getElementsByTagName("script")[0],
+                            nEmarsys = document.createElement("script");
+                        nEmarsys.src = "//ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys, nEmarsys.type = "text/javascript", nEmarsys.async = !0, nEmarsys.defer = !0, tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys)
+
+                        firstOnData = false;
+                    }
                 }
             };
 
