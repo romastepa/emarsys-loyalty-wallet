@@ -34,9 +34,34 @@
                             region: LoyaltyWallet.customer.region,
                         };
 
-                        var eEmarsys = (new Date).getTime(), tEmarsys = document.getElementsByTagName("script")[0],
+                        var eEmarsys = (new Date).getTime(),
+                            tEmarsys = document.getElementsByTagName("script")[0],
                             nEmarsys = document.createElement("script");
-                        nEmarsys.src = "//ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys, nEmarsys.type = "text/javascript", nEmarsys.async = !0, nEmarsys.defer = !0, tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys)
+                        nEmarsys.src = "https://ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys,
+                            nEmarsys.type = "text/javascript",
+                            nEmarsys.async = !0,
+                            nEmarsys.defer = !0,
+                            tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys);
+
+                        if (LoyaltyWallet.customer.customerId) {
+                            window.loyalsysSettingsEA = {
+                                appId: LoyaltyWallet.customer.appid,
+                                customerId: LoyaltyWallet.customer.customerid,
+                                contactId: LoyaltyWallet.customer.contactid,
+                                timestamp: LoyaltyWallet.customer.time,
+                                token: LoyaltyWallet.customer.token,
+                                region: LoyaltyWallet.customer.region,
+                            }
+
+                            var eEmarsys = (new Date).getTime(),
+                                tEmarsys = document.getElementsByTagName("script")[0],
+                                nEmarsys = document.createElement("script");
+                            nEmarsys.src = "https://exaccess.loyalsys.io/v1.0.1/ls_ea.min.js?x=" + eEmarsys,
+                                nEmarsys.type = "text/javascript",
+                                nEmarsys.async = !0,
+                                nEmarsys.defer = !0,
+                                tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys);
+                        }
 
                         firstOnData = false;
                     }

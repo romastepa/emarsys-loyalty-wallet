@@ -34,6 +34,12 @@
                         <field id="emarsys_loyalty_wallet/settings/enable">1</field>
                     </depends>
                 </field>
+                <field id="customerid" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>CustomerId</label>
+                    <depends>
+                        <field id="emarsys_loyalty_wallet/settings/enable">1</field>
+                    </depends>
+                </field>
                 <field id="test" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Test</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

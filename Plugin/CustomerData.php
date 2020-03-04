@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * @category   Emarsys
  * @package    Emarsys_LoyaltyWallet
@@ -51,12 +53,21 @@ class CustomerData extends Customer
      * @return array
      * @throws NoSuchEntityException
      */
-    public function afterGetSectionData(Customer $subject, $result)
+    public function afterGetSectionData(Customer $subject, $result): array
     {
         if (!$this->loyaltyWallet->isEnable()
             || empty($this->loyaltyWallet->getAppId())
             || empty($this->loyaltyWallet->getSecret())
+            || !$subject->currentCustomer->getCustomerId()
         ) {
+            unset(
+                $result['contactid'],
+                $result['appid'],
+                $result['time'],
+                $result['token'],
+                $result['customerId'],
+                $result['region']
+            );
             return $result;
         }
 
@@ -77,6 +88,7 @@ class CustomerData extends Customer
             $result['appid'] = $this->loyaltyWallet->getAppId();
             $result['time'] = $time;
             $result['token'] = hash_hmac("sha256", $result['contactid'] . $time, $this->loyaltyWallet->getSecret());
+            $result['customerId'] = $this->loyaltyWallet->getCustomerId();
             $result['region'] = 'eu'; //TODO: add to config
         }
 

@@ -25,4 +25,8 @@ from magento root folder
 
 ## Release Notes
 
-### v1.0.2
+### v1.0.3
+ - added Exclusive Access
+ - code style fixes
+ - fixed customer logout issue
+ - strict_types enabled
