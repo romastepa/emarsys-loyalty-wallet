@@ -13,7 +13,7 @@ https://help.emarsys.com/hc/en-us/articles/360002736118-Installing-the-Loyalty-W
 - `cd app/code/Emarsys/LoyaltyWallet/`
 - `git clone https://github.com/romastepa/emarsys-loyalty-wallet.git .`
 ### Composer
-- `composer require emarsys/loyalty-wallet:">=1.0.0"`
+- `composer require emarsys/loyalty-wallet`
 
 from magento root folder
 - `bin/magento module:enable Emarsys_LoyaltyWallet`
@@ -25,7 +25,7 @@ from magento root folder
 
 ## Release Notes
 
-### v1.0.3
+### v1.0.4
  - added Exclusive Access
  - code style fixes
  - fixed customer logout issue
