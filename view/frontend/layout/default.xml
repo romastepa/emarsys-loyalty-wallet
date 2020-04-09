@@ -10,8 +10,10 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <container name="emarsys.loyaltywallet.wrapper" htmlTag="div" htmlClass="emarsys-loyaltywallet-wrapper" after="-" >
-                <block class="Emarsys\LoyaltyWallet\Block\View" template="Emarsys_LoyaltyWallet::emarsys/view.phtml" name="loyaltywallet" ifconfig="emarsys_loyalty_wallet/settings/enable" after="-" />
+            <container name="emarsys.loyaltywallet.wrapper" htmlTag="div" htmlClass="emarsys-loyaltywallet-wrapper"
+                       after="-">
+                <block class="Emarsys\LoyaltyWallet\Block\View" template="Emarsys_LoyaltyWallet::emarsys/view.phtml"
+                       name="loyaltywallet" ifconfig="emarsys_loyalty_wallet/settings/enable" after="-"/>
             </container>
         </referenceContainer>
     </body>

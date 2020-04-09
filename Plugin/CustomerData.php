@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -16,10 +17,6 @@ use Magento\{
 };
 use Emarsys\LoyaltyWallet\Block\View\Proxy as LoyaltyWallet;
 
-/**
- * Class CustomerData
- * @package Emarsys\Emarsys\Plugin
- */
 class CustomerData extends Customer
 {
     /**
@@ -55,19 +52,19 @@ class CustomerData extends Customer
      */
     public function afterGetSectionData(Customer $subject, $result): array
     {
+        unset(
+            $result['contactid'],
+            $result['appid'],
+            $result['time'],
+            $result['token'],
+            $result['customerId'],
+            $result['region']
+        );
+
         if (!$this->loyaltyWallet->isEnable()
             || empty($this->loyaltyWallet->getAppId())
             || empty($this->loyaltyWallet->getSecret())
-            || !$subject->currentCustomer->getCustomerId()
         ) {
-            unset(
-                $result['contactid'],
-                $result['appid'],
-                $result['time'],
-                $result['token'],
-                $result['customerId'],
-                $result['region']
-            );
             return $result;
         }
 
@@ -75,8 +72,6 @@ class CustomerData extends Customer
         if ($customerId) {
             $customer = $subject->currentCustomer->getCustomer();
             $result['contactid'] = $customer->getEmail();
-        } elseif ($this->session->getWebExtendCustomerEmail()) {
-            $result['contactid'] = $this->session->getWebExtendCustomerEmail();
         }
 
         if ($this->loyaltyWallet->isTest()) {
@@ -87,7 +82,11 @@ class CustomerData extends Customer
             $time = time();
             $result['appid'] = $this->loyaltyWallet->getAppId();
             $result['time'] = $time;
-            $result['token'] = hash_hmac("sha256", $result['contactid'] . $time, $this->loyaltyWallet->getSecret());
+            $result['token'] = hash_hmac(
+                "sha256",
+                $result['contactid'] . $time,
+                $this->loyaltyWallet->getSecret()
+            );
             $result['customerId'] = $this->loyaltyWallet->getCustomerId();
             $result['region'] = 'eu'; //TODO: add to config
         }

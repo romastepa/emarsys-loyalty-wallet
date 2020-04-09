@@ -6,6 +6,7 @@
  * @copyright  Copyright (c) 2020 Emarsys. (http://www.emarsys.net/)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Emarsys_LoyaltyWallet" setup_version="1.0.4" schema_version="1.0.4" />
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Emarsys_LoyaltyWallet" setup_version="1.0.5" schema_version="1.0.5"/>
 </config>

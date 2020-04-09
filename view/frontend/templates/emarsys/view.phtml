@@ -24,53 +24,56 @@
                     timeout = undefined;
                 }
 
-                if (firstOnData) {
-                    if (LoyaltyWallet.customer && LoyaltyWallet.customer.contactid) {
-                        window.loyalsysSettings = {
+                if (firstOnData
+                    && LoyaltyWallet.customer !== undefined
+                    && LoyaltyWallet.customer.contactid !== undefined
+                ) {
+                    window.loyalsysSettings = {
+                        appId: LoyaltyWallet.customer.appid,
+                        contactId: LoyaltyWallet.customer.contactid,
+                        timestamp: LoyaltyWallet.customer.time,
+                        token: LoyaltyWallet.customer.token,
+                        region: LoyaltyWallet.customer.region,
+                    };
+
+                    var eEmarsys = (new Date).getTime(),
+                        tEmarsys = document.getElementsByTagName("script")[0],
+                        nEmarsys = document.createElement("script");
+                    nEmarsys.src = "https://ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys,
+                        nEmarsys.type = "text/javascript",
+                        nEmarsys.async = !0,
+                        nEmarsys.defer = !0,
+                        tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys);
+
+                    if (LoyaltyWallet.customer.customerId !== undefined) {
+                        window.loyalsysSettingsEA = {
                             appId: LoyaltyWallet.customer.appid,
+                            customerId: LoyaltyWallet.customer.customerid,
                             contactId: LoyaltyWallet.customer.contactid,
                             timestamp: LoyaltyWallet.customer.time,
                             token: LoyaltyWallet.customer.token,
                             region: LoyaltyWallet.customer.region,
-                        };
+                        }
 
                         var eEmarsys = (new Date).getTime(),
                             tEmarsys = document.getElementsByTagName("script")[0],
                             nEmarsys = document.createElement("script");
-                        nEmarsys.src = "https://ui-elements.loyalsys.io/v1.0.1/embed.min.js?x=" + eEmarsys,
+                        nEmarsys.src = "https://exaccess.loyalsys.io/v1.0.1/ls_ea.min.js?x=" + eEmarsys,
                             nEmarsys.type = "text/javascript",
                             nEmarsys.async = !0,
                             nEmarsys.defer = !0,
                             tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys);
-
-                        if (LoyaltyWallet.customer.customerId) {
-                            window.loyalsysSettingsEA = {
-                                appId: LoyaltyWallet.customer.appid,
-                                customerId: LoyaltyWallet.customer.customerid,
-                                contactId: LoyaltyWallet.customer.contactid,
-                                timestamp: LoyaltyWallet.customer.time,
-                                token: LoyaltyWallet.customer.token,
-                                region: LoyaltyWallet.customer.region,
-                            }
-
-                            var eEmarsys = (new Date).getTime(),
-                                tEmarsys = document.getElementsByTagName("script")[0],
-                                nEmarsys = document.createElement("script");
-                            nEmarsys.src = "https://exaccess.loyalsys.io/v1.0.1/ls_ea.min.js?x=" + eEmarsys,
-                                nEmarsys.type = "text/javascript",
-                                nEmarsys.async = !0,
-                                nEmarsys.defer = !0,
-                                tEmarsys.parentNode.insertBefore(nEmarsys, tEmarsys);
-                        }
-
-                        firstOnData = false;
                     }
+
+                    firstOnData = false;
                 }
             };
 
             customerData.get('customer').subscribe(function (customer) {
-                LoyaltyWallet.customer = customer;
-                if (!timeout) timeout = setTimeout(onData, 0);
+                if (customer.contactid !== undefined) {
+                    LoyaltyWallet.customer = customer;
+                    if (!timeout) timeout = setTimeout(onData, 0);
+                }
             });
         });
     </script>

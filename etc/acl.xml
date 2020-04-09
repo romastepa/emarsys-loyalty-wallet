@@ -6,11 +6,12 @@
  * @copyright  Copyright (c) 2020 Emarsys. (http://www.emarsys.net/)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Emarsys_LoyaltyWallet::settings" title="Emarsys Loyalty Wallet" sortOrder="150" />
+                <resource id="Emarsys_LoyaltyWallet::settings" title="Emarsys Loyalty Wallet" sortOrder="150"/>
             </resource>
         </resources>
     </acl>

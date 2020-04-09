@@ -6,8 +6,10 @@
  * @copyright  Copyright (c) 2020 Emarsys. (http://www.emarsys.net/)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Customer\CustomerData\Customer">
-        <plugin name="emarsys_loyalty_wallet" type="Emarsys\LoyaltyWallet\Plugin\CustomerData" sortOrder="200" disabled="false" />
+        <plugin name="emarsys_loyalty_wallet" type="Emarsys\LoyaltyWallet\Plugin\CustomerData" sortOrder="200"
+                disabled="false"/>
     </type>
 </config>

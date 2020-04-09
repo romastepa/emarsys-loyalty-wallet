@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -6,6 +7,7 @@ declare(strict_types=1);
  * @package    Emarsys_LoyaltyWallet
  * @copyright  Copyright (c) 2020 Emarsys. (http://www.emarsys.net/)
  */
+
 namespace Emarsys\LoyaltyWallet\Block;
 
 use Magento\{
@@ -15,10 +17,6 @@ use Magento\{
     Store\Model\StoreManagerInterface
 };
 
-/**
- * Class View
- * @package Emarsys\LoyaltyWallet\Block
- */
 class View extends Template
 {
     /**
@@ -51,6 +49,7 @@ class View extends Template
 
     /**
      * Is LoyaltyWallet enabled
+     *
      * @return bool
      * @throws NoSuchEntityException
      */
