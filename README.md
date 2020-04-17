@@ -25,5 +25,5 @@ from magento root folder
 
 ## Release Notes
 
-### v1.0.5
- - code style fixes
+### v1.0.6
+ - contactId and customerId fixes

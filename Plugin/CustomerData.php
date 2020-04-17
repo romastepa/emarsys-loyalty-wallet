@@ -53,7 +53,7 @@ class CustomerData extends Customer
     public function afterGetSectionData(Customer $subject, $result): array
     {
         unset(
-            $result['contactid'],
+            $result['contactId'],
             $result['appid'],
             $result['time'],
             $result['token'],
@@ -71,20 +71,20 @@ class CustomerData extends Customer
         $customerId = $subject->currentCustomer->getCustomerId();
         if ($customerId) {
             $customer = $subject->currentCustomer->getCustomer();
-            $result['contactid'] = $customer->getEmail();
+            $result['contactId'] = $customer->getEmail();
         }
 
         if ($this->loyaltyWallet->isTest()) {
-            $result['contactid'] = 'sample1@loyalsys.io';
+            $result['contactId'] = 'sample1@loyalsys.io';
         }
 
-        if (isset($result['contactid'])) {
+        if (isset($result['contactId'])) {
             $time = time();
             $result['appid'] = $this->loyaltyWallet->getAppId();
             $result['time'] = $time;
             $result['token'] = hash_hmac(
                 "sha256",
-                $result['contactid'] . $time,
+                $result['contactId'] . $time,
                 $this->loyaltyWallet->getSecret()
             );
             $result['customerId'] = $this->loyaltyWallet->getCustomerId();

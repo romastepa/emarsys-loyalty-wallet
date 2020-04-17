@@ -26,11 +26,11 @@
 
                 if (firstOnData
                     && LoyaltyWallet.customer !== undefined
-                    && LoyaltyWallet.customer.contactid !== undefined
+                    && LoyaltyWallet.customer.contactId !== undefined
                 ) {
                     window.loyalsysSettings = {
                         appId: LoyaltyWallet.customer.appid,
-                        contactId: LoyaltyWallet.customer.contactid,
+                        contactId: LoyaltyWallet.customer.contactId,
                         timestamp: LoyaltyWallet.customer.time,
                         token: LoyaltyWallet.customer.token,
                         region: LoyaltyWallet.customer.region,
@@ -48,8 +48,8 @@
                     if (LoyaltyWallet.customer.customerId !== undefined) {
                         window.loyalsysSettingsEA = {
                             appId: LoyaltyWallet.customer.appid,
-                            customerId: LoyaltyWallet.customer.customerid,
-                            contactId: LoyaltyWallet.customer.contactid,
+                            customerId: LoyaltyWallet.customer.customerId,
+                            contactId: LoyaltyWallet.customer.contactId,
                             timestamp: LoyaltyWallet.customer.time,
                             token: LoyaltyWallet.customer.token,
                             region: LoyaltyWallet.customer.region,
@@ -70,7 +70,7 @@
             };
 
             customerData.get('customer').subscribe(function (customer) {
-                if (customer.contactid !== undefined) {
+                if (customer.contactId !== undefined) {
                     LoyaltyWallet.customer = customer;
                     if (!timeout) timeout = setTimeout(onData, 0);
                 }
