@@ -7,5 +7,5 @@
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
     'Emarsys_LoyaltyWallet',
-    isset($file) ? dirname($file) : __DIR__
+    __DIR__
 );
