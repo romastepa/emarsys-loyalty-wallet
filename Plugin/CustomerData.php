@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /**
@@ -10,36 +9,34 @@ declare(strict_types=1);
 
 namespace Emarsys\LoyaltyWallet\Plugin;
 
-use Magento\{
-    Customer\CustomerData\Customer,
-    Customer\Model\Session,
-    Framework\Exception\NoSuchEntityException
-};
 use Emarsys\LoyaltyWallet\Block\View\Proxy as LoyaltyWallet;
+use Magento\Customer\CustomerData\Customer;
+use Magento\Customer\Helper\Session\CurrentCustomer;
+use Magento\Framework\Exception\NoSuchEntityException;
 
-class CustomerData extends Customer
+class CustomerData
 {
     /**
-     * @var Session
+     * @var CurrentCustomer
      */
-    protected $session;
+    private $currentCustomer;
 
     /**
-     * @var LoyaltyWallet
+     * @var \Emarsys\LoyaltyWallet\Block\View
      */
-    protected $loyaltyWallet;
+    private $loyaltyWallet;
 
     /**
      * CustomerData constructor.
      *
-     * @param Session $session
+     * @param CurrentCustomer $currentCustomer
      * @param LoyaltyWallet $loyaltyWallet
      */
     public function __construct(
-        Session $session,
+        CurrentCustomer $currentCustomer,
         LoyaltyWallet $loyaltyWallet
     ) {
-        $this->session = $session;
+        $this->currentCustomer = $currentCustomer;
         $this->loyaltyWallet = $loyaltyWallet;
     }
 
@@ -49,8 +46,9 @@ class CustomerData extends Customer
      *
      * @return array
      * @throws NoSuchEntityException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function afterGetSectionData(Customer $subject, $result): array
+    public function afterGetSectionData(Customer $subject, array $result): array
     {
         unset(
             $result['contactId'],
@@ -58,7 +56,11 @@ class CustomerData extends Customer
             $result['time'],
             $result['token'],
             $result['customerId'],
-            $result['region']
+            $result['region'],
+            $result['planid'],
+            $result['country'],
+            $result['currency'],
+            $result['language'],
         );
 
         if (!$this->loyaltyWallet->isEnable()
@@ -68,9 +70,10 @@ class CustomerData extends Customer
             return $result;
         }
 
-        $customerId = $subject->currentCustomer->getCustomerId();
+        $customerId = $this->currentCustomer->getCustomerId();
+
         if ($customerId) {
-            $customer = $subject->currentCustomer->getCustomer();
+            $customer = $this->currentCustomer->getCustomer();
             $result['contactId'] = $customer->getEmail();
         }
 
@@ -79,16 +82,22 @@ class CustomerData extends Customer
         }
 
         if (isset($result['contactId'])) {
+            $planId = $this->loyaltyWallet->getPlanId();
             $time = time();
+
             $result['appid'] = $this->loyaltyWallet->getAppId();
             $result['time'] = $time;
             $result['token'] = hash_hmac(
                 "sha256",
-                $result['contactId'] . $time,
+                $result['contactId'] . $planId . $time,
                 $this->loyaltyWallet->getSecret()
             );
             $result['customerId'] = $this->loyaltyWallet->getCustomerId();
             $result['region'] = 'eu'; //TODO: add to config
+            $result['planId'] = $planId;
+            $result['country'] = $this->loyaltyWallet->getCountry();
+            $result['currency'] = $this->loyaltyWallet->getCurrency();
+            $result['language'] = $this->loyaltyWallet->getLanguage();
         }
 
         return $result;

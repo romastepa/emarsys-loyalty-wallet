@@ -34,7 +34,17 @@
                         timestamp: LoyaltyWallet.customer.time,
                         token: LoyaltyWallet.customer.token,
                         region: LoyaltyWallet.customer.region,
+                        currency: LoyaltyWallet.customer.currency,
+                        language: LoyaltyWallet.customer.language,
                     };
+
+                    if (LoyaltyWallet.customer.planId) {
+                        window.loyalsysSettings.planId = LoyaltyWallet.customer.planId;
+                    }
+
+                    if (LoyaltyWallet.customer.country) {
+                        window.loyalsysSettings.country = LoyaltyWallet.customer.country;
+                    }
 
                     var eEmarsys = (new Date).getTime(),
                         tEmarsys = document.getElementsByTagName("script")[0],
@@ -53,6 +63,16 @@
                             timestamp: LoyaltyWallet.customer.time,
                             token: LoyaltyWallet.customer.token,
                             region: LoyaltyWallet.customer.region,
+                            currency: LoyaltyWallet.customer.currency,
+                            language: LoyaltyWallet.customer.language,
+                        }
+
+                        if (LoyaltyWallet.customer.planId) {
+                            window.loyalsysSettings.planId = LoyaltyWallet.customer.planId;
+                        }
+
+                        if (LoyaltyWallet.customer.country) {
+                            window.loyalsysSettings.country = LoyaltyWallet.customer.country;
                         }
 
                         var eEmarsys = (new Date).getTime(),

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /**
@@ -10,42 +9,22 @@ declare(strict_types=1);
 
 namespace Emarsys\LoyaltyWallet\Block;
 
-use Magento\{
-    Framework\Exception\NoSuchEntityException,
-    Framework\View\Element\Template,
-    Framework\View\Element\Template\Context,
-    Store\Model\StoreManagerInterface
-};
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\View\Element\Template;
 
 class View extends Template
 {
     /**
      * XML Path to LoyaltyWallet configurations
      */
-    const XPATH_LOYALTY_WALLET_ENABLED = 'emarsys_loyalty_wallet/settings/enable';
-    const XPATH_LOYALTY_WALLET_APPID = 'emarsys_loyalty_wallet/settings/appid';
-    const XPATH_LOYALTY_WALLET_SECRET = 'emarsys_loyalty_wallet/settings/secret';
-    const XPATH_LOYALTY_WALLET_CUSTOMERID = 'emarsys_loyalty_wallet/settings/customerid';
-    const XPATH_LOYALTY_WALLET_TEST = 'emarsys_loyalty_wallet/settings/test';
-
-    /**
-     * @var StoreManagerInterface
-     */
-    protected $storeManager;
-
-    /**
-     * View constructor.
-     *
-     * @param Context $context
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        array $data = []
-    ) {
-        $this->storeManager = $context->getStoreManager();
-        parent::__construct($context, $data);
-    }
+    public const XPATH_LOYALTY_WALLET_ENABLED = 'emarsys_loyalty_wallet/settings/enable';
+    public const XPATH_LOYALTY_WALLET_APPID = 'emarsys_loyalty_wallet/settings/appid';
+    public const XPATH_LOYALTY_WALLET_SECRET = 'emarsys_loyalty_wallet/settings/secret';
+    public const XPATH_LOYALTY_WALLET_CUSTOMERID = 'emarsys_loyalty_wallet/settings/customerid';
+    public const XPATH_LOYALTY_WALLET_TEST = 'emarsys_loyalty_wallet/settings/test';
+    public const XPATH_LOYALTY_WALLET_PLANID = 'emarsys_loyalty_wallet/settings/planid';
+    public const XPATH_LOYALTY_WALLET_COUNTRY = 'emarsys_loyalty_wallet/settings/country_id';
 
     /**
      * Is LoyaltyWallet enabled
@@ -55,7 +34,7 @@ class View extends Template
      */
     public function isEnable(): bool
     {
-        return (bool)$this->storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_ENABLED);
+        return (bool)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_ENABLED);
     }
 
     /**
@@ -64,7 +43,7 @@ class View extends Template
      */
     public function getAppId(): string
     {
-        return (string)$this->storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_APPID);
+        return (string)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_APPID);
     }
 
     /**
@@ -73,9 +52,8 @@ class View extends Template
      */
     public function getSecret(): string
     {
-        return (string)$this->storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_SECRET);
+        return (string)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_SECRET);
     }
-
 
     /**
      * @return string
@@ -83,7 +61,46 @@ class View extends Template
      */
     public function getCustomerId(): string
     {
-        return (string)$this->storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_CUSTOMERID);
+        return (string)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_CUSTOMERID);
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getPlanId(): string
+    {
+        return (string)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_PLANID);
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getCountry(): string
+    {
+        return (string)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_COUNTRY);
+    }
+
+    /**
+     * @return string
+     * @throws LocalizedException
+     */
+    public function getCurrency(): string
+    {
+        return (string)$this->_storeManager->getStore()->getCurrentCurrency()->getCode();
+    }
+
+    /**
+     * @return string
+     * @throws LocalizedException
+     */
+    public function getLanguage(): string
+    {
+        $language = (string)$this->_storeManager->getStore()
+            ->getConfig(\Magento\Directory\Helper\Data::XML_PATH_DEFAULT_LOCALE);
+
+        return substr($language, 0, strpos($language, '_'));
     }
 
     /**
@@ -92,6 +109,6 @@ class View extends Template
      */
     public function isTest(): bool
     {
-        return (bool)$this->storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_TEST);
+        return (bool)$this->_storeManager->getStore()->getConfig(self::XPATH_LOYALTY_WALLET_TEST);
     }
 }

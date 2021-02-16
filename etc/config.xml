@@ -13,6 +13,8 @@
             <settings>
                 <enable>0</enable>
                 <test>0</test>
+                <planid></planid>
+                <country_id></country_id>
             </settings>
         </emarsys_loyalty_wallet>
     </default>

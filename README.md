@@ -25,5 +25,20 @@ from magento root folder
 
 ## Release Notes
 
+### v1.0.7
+- added csp_whitelist.xml
+- added Plan Id, Country, Currency, Language
+
 ### v1.0.6
- - contactId and customerId fixes
+- contactId and customerId fixes
+
+### v1.0.5
+- code style fixes
+
+### v1.0.4
+- added Exclusive Access
+- code style fixes
+
+### v1.0.3
+- added Exclusive Access
+- code style fixes
