@@ -1,12 +1,12 @@
 {
   "name": "emarsys/loyalty-wallet",
   "description": "Emarsys Loyalty Wallet Extension",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "magento2-module",
   "authors": [
     {
       "name": "Roman Stepanov",
-      "email": "roman.stepanov@emarsys.com",
+      "email": "mail2punk@gmail.com",
       "homepage": "https://www.emarsys.com"
     }
   ],
